@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/apache-mime4j-0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/bsh-1.3.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/cglib-nodep-2.1_3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-collections-3.2.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-exec-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-jxpath-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/cssparser-0.9.14.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/gson-2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/htmlunit-2.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/htmlunit-core-js-2.15.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/httpclient-4.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/httpmime-4.3.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/ini4j-0.5.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/jcommander-1.29.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/jetty-websocket-8.1.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/jna-3.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/jna-platform-3.4.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/junit-dep-4.11.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/nekohtml-1.9.21.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/netty-3.5.7.Final.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/operadriver-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/phantomjsdriver-1.1.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/protobuf-java-2.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/sac-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/serializer-2.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/testng-6.8.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/xalan-2.7.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/xercesImpl-2.11.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/libs/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector.J 5.1/mysql-connector-java-5.1.34-bin.jar" sourcepath="C:/Program Files (x86)/MySQL/Connector.J 5.1/src"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/selenium-java-2.45.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/selenium-java-2.45.0-srcs.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
