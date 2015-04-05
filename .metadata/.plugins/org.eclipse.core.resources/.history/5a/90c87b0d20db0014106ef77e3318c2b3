@@ -88,7 +88,7 @@ public class MySQLAccess {
 	        preparedStatement.setInt(3, categoria.getId_parent());
 	        preparedStatement.setString(4, categoria.getCategory_url());
 	        preparedStatement.setInt(5, categoria.getEs_final());
-	        System.out.println(preparedStatement);
+	        //System.out.println(preparedStatement);
 	        preparedStatement.executeUpdate();  	
 	    } catch (Exception e) {
 	        throw e;
@@ -205,7 +205,7 @@ public class MySQLAccess {
         preparedStatement.setString(6, articulo.getContent());
         preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
         preparedStatement.setDate(8, new java.sql.Date(new Date().getTime()));
-        System.out.println(preparedStatement);
+        //System.out.println(preparedStatement);
         preparedStatement.executeUpdate();  	
     } catch (Exception e) {
         throw e;
@@ -242,7 +242,7 @@ public class MySQLAccess {
         preparedStatement.setInt(5, articulo.getActive());
         preparedStatement.setString(6, articulo.getContent());
         preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
-        System.out.println(preparedStatement);
+        //System.out.println(preparedStatement);
         preparedStatement.executeUpdate();  	
     } catch (Exception e) {
         throw e;

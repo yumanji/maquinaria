@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class Article {
 
-	private int id;
+	private Integer id;
 	private String id_original;
-	private int id_category;
+	private Integer id_category;
 	private String article_url;
 	private String content;
-	private int count = 1;
-	private int active = 1;
+	private Integer count = 1;
+	private Integer active = 1;
 	private Date created;
 	private Date last_review;
 	private Date deleted;

@@ -25,9 +25,8 @@ public class Driver {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		//driver.navigate().to("http://www.agriaffaires.es/");
-		int maxDepth = 999;
-		//String url = "http://www.agriaffaires.es";
-		String url = "http://www.agriaffaires.es/usado/1/maquinaria-agricola.html";
+		int maxDepth = 10;
+		String url = "http://www.agriaffaires.es";
 		int contadorPaginas=0, cont1 = 0, cont2 = 0, cont3 = 0;
 		//Set listaEnlaces = new HashSet(); 
 		Set listaSubEnlaces = new HashSet(); 
@@ -88,13 +87,13 @@ public class Driver {
 				
 				//Obtengo los enlaces de la subcategoría dependiente de esta
 				List<Categoria> listaEnlacesSubcategoria = getLinks(urlEnlace.getCategory_url(), 2, urlEnlace);
-				System.out.println("1 - Encontradas ".concat(String.valueOf(listaEnlacesSubcategoria.size())).concat(" categorias en el enlace ").concat(urlEnlace.getCategory_url()));
+				System.out.println("Encontradas ".concat(String.valueOf(listaEnlacesSubcategoria.size())).concat(" categorias en el enlace ").concat(urlEnlace.getCategory_url()));
 				if(listaEnlacesSubcategoria.size() == 0) {
 					// Si la categoría no tiene categorías hijo
 					urlEnlace.setEs_final(1);
 					urlEnlace.actualizar();
 					List<String> listaEnlacesArticulos = getArticleLinks(urlEnlace.getCategory_url());
-					System.out.println("1 - Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" articulos en el enlace ").concat(urlEnlace.getCategory_url()));
+					System.out.println("Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" articulos en el enlace ").concat(urlEnlace.getCategory_url()));
 					registerArticles(listaEnlacesArticulos, urlEnlace);
 				} else {
 					// Si la categoría tiene subcategorias
@@ -115,13 +114,13 @@ public class Driver {
 						
 						//Obtengo los enlaces de la subsubcategoría dependiente de esta
 						List<Categoria> listaEnlacesSubSubcategoria = getLinks(urlEnlace2.getCategory_url(), 3, urlEnlace2);
-						System.out.println("2 - Encontradas ".concat(String.valueOf(listaEnlacesSubSubcategoria.size())).concat(" categorias en el enlace ").concat(urlEnlace2.getCategory_url()));
+						System.out.println("Encontradas ".concat(String.valueOf(listaEnlacesSubSubcategoria.size())).concat(" categorias en el enlace ").concat(urlEnlace2.getCategory_url()));
 						if(listaEnlacesSubSubcategoria.size() == 0) {
 							// Si la categoría no tiene categorías hijo
 							urlEnlace2.setEs_final(1);
 							urlEnlace2.actualizar();
 							List<String> listaEnlacesArticulos = getArticleLinks(urlEnlace2.getCategory_url());
-							System.out.println("2- Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" articulos en el enlace ").concat(urlEnlace2.getCategory_url()));
+							System.out.println("Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" articulos en el enlace ").concat(urlEnlace2.getCategory_url()));
 							registerArticles(listaEnlacesArticulos, urlEnlace2);
 							
 						}  else {
@@ -139,7 +138,7 @@ public class Driver {
 								// Grabo la información de la categoría de análisis
 								urlEnlace3.grabar();
 								List<String> listaEnlacesArticulos = getArticleLinks(urlEnlace3.getCategory_url());
-								System.out.println("3 - Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" articulos en el enlace ").concat(urlEnlace3.getCategory_url()));
+								System.out.println("Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" articulos en el enlace ").concat(urlEnlace3.getCategory_url()));
 								registerArticles(listaEnlacesArticulos, urlEnlace3);
 							}
 						}
@@ -258,11 +257,9 @@ public class Driver {
 
 	public static void registerArticles (List<String> listaEnlacesArticulos, Categoria categoria) {
 		//System.out.println("Encontrados ".concat(String.valueOf(listaEnlacesArticulos.size())).concat(" en el enlace ").concat(url));
-		String foo = null;
 		Iterator<String> itListaEnlacesArticulos= listaEnlacesArticulos.iterator();
 		while (itListaEnlacesArticulos.hasNext()) {
 			String urlEnlaceArt = itListaEnlacesArticulos.next();
-			if(urlEnlaceArt.equals(foo)) continue;
 			System.out.println(urlEnlaceArt);
 			Article arti = new Article(urlEnlaceArt);
 			arti.setId_category(categoria.getId());
@@ -301,7 +298,7 @@ public class Driver {
 	public static List<String> getArticleLinks (String url) {
 		// Recupera enlaces a las fichas de los productos
 		List<String> all_links =  new ArrayList<String>();
-		
+		Integer contador = 0;
 		if(url.isEmpty() || url.length() == 0) return null;
 		System.out.println("Viajando a ".concat(url));
 		driver.navigate().to(url);
@@ -318,7 +315,7 @@ public class Driver {
 			all_links.add(urlEnlace);
 		}
 		
-		while(!driver.findElements(By.partialLinkText("página siguiente")).isEmpty()) {
+		while(contador < 2 && !driver.findElements(By.partialLinkText("página siguiente")).isEmpty()) {
 			//Mientras detecte el enlace a siguiente página, voy visitándolas y repitiendo la acción anterior 
 			// sacando más enlaces y añadiéndolos al array de resultados
 			it2 = null;
@@ -334,7 +331,7 @@ public class Driver {
 				//System.out.println(urlEnlace);
 				all_links.add(urlEnlace);
 			}
-			
+			contador++;
 		}
 		
 		
