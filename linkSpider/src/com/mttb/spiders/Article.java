@@ -3,14 +3,18 @@ package com.mttb.spiders;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Article {
 
@@ -24,7 +28,8 @@ public class Article {
 	private Date created;
 	private Date last_review;
 	private Date deleted;
-	
+
+	public static WebDriver driver = new FirefoxDriver();
 	
 	/**
 	 * @param article_url
@@ -146,6 +151,21 @@ public class Article {
 		
 	}
 	
+	public void actualizarContent() {
+		MySQLAccess dao = new MySQLAccess();
+		
+		try {
+			dao.registerContent(this);
+			dao.updateArticle(this);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		dao.close();
+		
+	}
+	
 	public void recargar() {
 		MySQLAccess dao = new MySQLAccess();
 		
@@ -194,8 +214,9 @@ public class Article {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		//driver.navigate().to("http://www.agriaffaires.es/");
-		int maxDepth = 20;
+		int maxDepth = 50, cont = 1;
 		List<Article> listaArticulos = null;
+		String url = "http://www.agriaffaires.es/usado/1/maquinaria-agricola.html";
 		
 		listaArticulos = getArticles(maxDepth);
 		Iterator<Article> ListaArt= listaArticulos.iterator();
@@ -204,15 +225,46 @@ public class Article {
 		//datosCategoria.put("parent", "1");
 		while (ListaArt.hasNext()) {
 			Article articulo = ListaArt.next();
-			System.out.println("Articulo ".concat(articulo.getId_original()).concat(" con url ").concat(articulo.getArticle_url()));
-		
+			System.out.println(Integer.toString(cont).concat(" Articulo ").concat(articulo.getId_original()).concat(" con url ").concat(articulo.getArticle_url()));
+			String contenido = getArticleContent(articulo);
+			//System.out.println("Contenido ".concat(contenido));
+			articulo.setContent(contenido);
+			articulo.actualizarContent();
+			cont++;
 		}
 		//String url = "http://www.agriaffaires.es";
-		String url = "http://www.agriaffaires.es/usado/1/maquinaria-agricola.html";
 		int contadorPaginas=0;
 		
 	}
 
 
+	public static String getArticleContent (Article articulo) {
+		// Recupera la lista de enlaces de las categorías o subcategorías
+		String content = "";
+		String url = articulo.getArticle_url();
+		List<String> completo =  new ArrayList<String>();
+		
+		if(url.isEmpty() || url.length() == 0) return null;
+		//System.out.println("Viajando a ".concat(url));
+		driver.navigate().to(url);
+		List contenidos = driver.findElements(By.cssSelector(".annonceDetail"));	// tabla de la ficha del articulo
+		//System.out.println("Encontrados ".concat(Integer.toString(contenidos.size())).concat(" elementos"));
+		Iterator<WebElement> it = contenidos.iterator();
+		while (it.hasNext())
+		{
+			
+			WebElement elemento = (WebElement) it.next();
+			completo.add(elemento.getAttribute("innerHTML"));
+			//System.out.println("Contenido ".concat(content));
+			//System.out.println("Contenido2 ".concat(elemento.getAttribute("innerHTML")));
+		}
+		content.concat("</table>");
+		//content = contenido.getAttribute("innerHTML");
+		//contenido.getText()
+		String joinedResult = StringUtils.join(completo, "</table><table>");
+		
+		return "<table>".concat(joinedResult).concat("</table");
+		//return content;
+	}
 	
 }

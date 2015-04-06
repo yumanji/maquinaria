@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -207,7 +208,7 @@ public class MySQLAccess {
         preparedStatement.setString(6, articulo.getContent());
         preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
         preparedStatement.setDate(8, new java.sql.Date(new Date().getTime()));
-        System.out.println(preparedStatement);
+        //System.out.println(preparedStatement);
         preparedStatement.executeUpdate();  	
     } catch (Exception e) {
         throw e;
@@ -215,7 +216,6 @@ public class MySQLAccess {
     	statementClose();
     }
   }
-
 
   public void updateArticle( Article articulo) throws Exception {
     try {
@@ -243,7 +243,47 @@ public class MySQLAccess {
         preparedStatement.setInt(4, articulo.getCount());
         preparedStatement.setInt(5, articulo.getActive());
         preparedStatement.setString(6, articulo.getContent());
-        preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
+        java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+        //preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
+         preparedStatement.setTimestamp(7, date);
+       preparedStatement.setInt(8, articulo.getId());
+        //System.out.println(preparedStatement);
+        preparedStatement.executeUpdate();  	
+    } catch (Exception e) {
+        throw e;
+    } finally {
+    	statementClose();
+    }
+  }
+
+
+
+  public void registerContent( Article articulo) throws Exception {
+    try {
+    	
+    	if(connect == null) connectDataBase();
+    	
+        // Statements allow to issue SQL queries to the database
+        statement = connect.createStatement();
+        // Result set get the result of the SQL query
+/*        resultSet = statement
+            .executeQuery("select * from maquinaria.category_links");
+        writeResultSet(resultSet);
+*/
+        /* ####################
+         * ####################### AQUI ESTOY
+         */
+        // PreparedStatements can use variables and are more efficient
+        preparedStatement = connect
+                .prepareStatement("INSERT INTO `maquinaria`.`articles_links_data` (`id`, `id_original`, `content`, `fecha`) VALUES (?, ?, ?, ?)");
+       // "myuser, webpage, datum, summery, COMMENTS from feedback.comments");
+        // Parameters start with 1
+        preparedStatement.setInt(1, articulo.getId());
+        preparedStatement.setString(2, articulo.getId_original());
+        preparedStatement.setString(3, articulo.getContent());
+        java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
+        //preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
+         preparedStatement.setTimestamp(4, date);
         System.out.println(preparedStatement);
         preparedStatement.executeUpdate();  	
     } catch (Exception e) {
