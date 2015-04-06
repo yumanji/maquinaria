@@ -1,6 +1,16 @@
 package com.mttb.spiders;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class Article {
 
@@ -152,5 +162,57 @@ public class Article {
 	}
 	
 	
+	public static List<Article> getArticles(int quantity) {
+		MySQLAccess dao = new MySQLAccess();
+		List<Article> listaArticulos = null;
+		try {
+			listaArticulos = dao.getArticles(quantity);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		dao.close();
+		return listaArticulos;
+	}
+	public static List<Article> getArticles() {
+		MySQLAccess dao = new MySQLAccess();
+		List<Article> listaArticulos = null;
+		try {
+			listaArticulos = dao.getArticles(10);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		dao.close();
+		return listaArticulos;
+	}
+	
+
+	public static void main(String[] args) throws Exception {
+		// TODO Auto-generated method stub
+		//driver.navigate().to("http://www.agriaffaires.es/");
+		int maxDepth = 20;
+		List<Article> listaArticulos = null;
+		
+		listaArticulos = getArticles(maxDepth);
+		Iterator<Article> ListaArt= listaArticulos.iterator();
+		//datosCategoria.put("level", "1");
+		//datosCategoria.put("id", "1");
+		//datosCategoria.put("parent", "1");
+		while (ListaArt.hasNext()) {
+			Article articulo = ListaArt.next();
+			System.out.println("Articulo ".concat(articulo.getId_original()).concat(" con url ").concat(articulo.getArticle_url()));
+		
+		}
+		//String url = "http://www.agriaffaires.es";
+		String url = "http://www.agriaffaires.es/usado/1/maquinaria-agricola.html";
+		int contadorPaginas=0;
+		
+	}
+
+
 	
 }

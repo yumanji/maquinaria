@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class MySQLAccess {
@@ -287,6 +289,43 @@ public class MySQLAccess {
     }
   }
 
+
+public List<Article> getArticles(int quantity) throws Exception  {
+	// TODO Auto-generated method stub
+	List<Article> listaArticulos =  new ArrayList<Article>();
+	try {
+		if(connect == null) connectDataBase();
+	    statement = connect.createStatement();
+	    // Result set get the result of the SQL query
+	    resultSet = statement
+	        .executeQuery("select * from maquinaria.articles_links where active = 1 order by last_review asc LIMIT 0, ".concat(Integer.toString(quantity)));
+	    
+	    
+	    while (resultSet.next()) {
+	        // It is possible to get the columns via name
+	        // also possible to get the columns via the column number
+	        // which starts at 1
+	        // e.g. resultSet.getSTring(2);
+	    	Article art = new Article();
+	    	art.setActive(1);
+	    	art.setContent(resultSet.getString("content"));
+	    	art.setArticle_url(resultSet.getString("article_url"));
+	    	art.setCount(resultSet.getInt("count"));
+	    	art.setCreated(resultSet.getDate("created"));
+	    	art.setId(resultSet.getInt("id"));
+	    	art.setId_category(resultSet.getInt("id_category"));
+	    	art.setId_original(resultSet.getString("id_original"));
+	    	listaArticulos.add(art);
+	        //art = null;
+	    }
+    } catch (Exception e) {
+        throw e;
+    } finally {
+    	statementClose();
+    }
+    return listaArticulos;
+}
+
   public void readDataBase() throws Exception {
     try {
       // Statements allow to issue SQL queries to the database
@@ -397,4 +436,5 @@ public class MySQLAccess {
 
     }
   }
+
 } 
