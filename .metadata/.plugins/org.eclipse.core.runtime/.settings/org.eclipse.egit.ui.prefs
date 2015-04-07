@@ -1,2 +1,2 @@
-commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<messages>\r\n<message>ficheros raros que aparecen...</message>\r\n<message>..</message>\r\n</messages>
+commit_dialog_history_messages=<?xml version\="1.0" encoding\="UTF-8"?>\r\n<messages>\r\n<message>Captura de contenido de art\u00EDculo y almacenaje en tabla de datos&\#x0A;hist\u00F3ricos de art\u00EDculos.</message>\r\n<message>Creaci\u00F3n de main() para captura de informaci\u00F3n de los art\u00EDculos y rutina&\#x0A;de recuperaci\u00F3n de registros de la base de datos</message>\r\n<message>Peque\u00F1as correciones para evitar errores</message>\r\n<message>ficheros raros que aparecen...</message>\r\n<message>..</message>\r\n</messages>
 eclipse.preferences.version=1
