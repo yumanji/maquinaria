@@ -214,7 +214,7 @@ public class Article {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		//driver.navigate().to("http://www.agriaffaires.es/");
-		int maxDepth = 50, cont = 1;
+		int maxDepth = 500, cont = 1;
 		List<Article> listaArticulos = null;
 		String url = "http://www.agriaffaires.es/usado/1/maquinaria-agricola.html";
 		

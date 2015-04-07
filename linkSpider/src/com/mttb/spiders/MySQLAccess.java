@@ -284,7 +284,7 @@ public class MySQLAccess {
         java.sql.Timestamp date = new java.sql.Timestamp(new java.util.Date().getTime());
         //preparedStatement.setDate(7, new java.sql.Date(new Date().getTime()));
          preparedStatement.setTimestamp(4, date);
-        System.out.println(preparedStatement);
+        //System.out.println(preparedStatement);
         preparedStatement.executeUpdate();  	
     } catch (Exception e) {
         throw e;
