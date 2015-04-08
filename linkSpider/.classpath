@@ -42,5 +42,7 @@
 	<classpathentry kind="lib" path="C:/Program Files (x86)/MySQL/Connector.J 5.1/mysql-connector-java-5.1.34-bin.jar" sourcepath="C:/Program Files (x86)/MySQL/Connector.J 5.1/src"/>
 	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/selenium-java-2.45.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/selenium-java-2.45.0-srcs.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/jsoup-1.8.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juanjo/workspace/generic/jsoup-1.8.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

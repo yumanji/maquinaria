@@ -1,16 +1,26 @@
 package com.mttb.spiders;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -29,7 +39,7 @@ public class Article {
 	private Date last_review;
 	private Date deleted;
 
-	public static WebDriver driver = new FirefoxDriver();
+	//public static WebDriver driver = new FirefoxDriver();
 	
 	/**
 	 * @param article_url
@@ -214,9 +224,9 @@ public class Article {
 	public static void main(String[] args) throws Exception {
 		// TODO Auto-generated method stub
 		//driver.navigate().to("http://www.agriaffaires.es/");
-		int maxDepth = 500, cont = 1;
+		int maxDepth = 200, cont = 1;
 		List<Article> listaArticulos = null;
-		String url = "http://www.agriaffaires.es/usado/1/maquinaria-agricola.html";
+		String url = "";
 		
 		listaArticulos = getArticles(maxDepth);
 		Iterator<Article> ListaArt= listaArticulos.iterator();
@@ -226,10 +236,13 @@ public class Article {
 		while (ListaArt.hasNext()) {
 			Article articulo = ListaArt.next();
 			System.out.println(Integer.toString(cont).concat(" Articulo ").concat(articulo.getId_original()).concat(" con url ").concat(articulo.getArticle_url()));
+			
 			String contenido = getArticleContent(articulo);
+			
 			//System.out.println("Contenido ".concat(contenido));
 			articulo.setContent(contenido);
 			articulo.actualizarContent();
+			 
 			cont++;
 		}
 		//String url = "http://www.agriaffaires.es";
@@ -237,9 +250,66 @@ public class Article {
 		
 	}
 
-
 	public static String getArticleContent (Article articulo) {
 		// Recupera la lista de enlaces de las categorías o subcategorías
+		String content = "";
+		List<String> completo =  new ArrayList<String>();
+		String urlString = articulo.getArticle_url();
+		if(urlString.isEmpty() || urlString.length() == 0) return null;
+		BufferedReader reader = null;
+	    try {
+	        URL url = new URL(urlString);
+	        try {
+	            Thread.sleep(1000);                 //1000 milliseconds is one second.
+	        } catch(InterruptedException ex) {
+	            Thread.currentThread().interrupt();
+	        }
+	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read); 
+
+	        String resultado = buffer.toString();
+	        
+	        Document doc = Jsoup.parse(resultado);
+			Elements eTablesDetails = doc.getElementsByClass("annonceDetail");
+			Iterator<Element> itElementsTable = eTablesDetails.iterator();
+			while (itElementsTable.hasNext()){
+				Element elemento = itElementsTable.next();
+				//elemento.toString()
+				completo.add(elemento.toString());
+				//System.out.println("Contenido ".concat(content));
+				//System.out.println("Contenido2 ".concat(elemento.toString()));
+			}
+			String joinedResult = StringUtils.join(completo, "");
+			
+			return joinedResult;
+			
+	    } catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+	        if (reader != null)
+				try {
+					reader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    }
+	    
+	    return "";
+	    
+	}
+	
+	public static String getArticleContent_old (Article articulo) {
+		// Recupera la lista de enlaces de las categorías o subcategorías
+		WebDriver driver = new FirefoxDriver();
 		String content = "";
 		String url = articulo.getArticle_url();
 		List<String> completo =  new ArrayList<String>();
@@ -265,6 +335,5 @@ public class Article {
 		
 		return "<table>".concat(joinedResult).concat("</table");
 		//return content;
-	}
-	
+	}	
 }
